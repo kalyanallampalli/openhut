@@ -11,15 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909030931) do
+ActiveRecord::Schema.define(version: 20150911050314) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "address_1",     limit: 255
+    t.string   "address_2",     limit: 255
+    t.string   "city",          limit: 255
+    t.integer  "state_id",      limit: 4
+    t.string   "zip",           limit: 255
+    t.integer  "country_id",    limit: 4
+    t.decimal  "latitude",                  precision: 10
+    t.decimal  "longitude",                 precision: 10
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "restaurant_id", limit: 4
+  end
+
+  add_index "addresses", ["country_id"], name: "index_addresses_on_country_id", using: :btree
+  add_index "addresses", ["restaurant_id"], name: "index_addresses_on_restaurant_id", using: :btree
+  add_index "addresses", ["state_id"], name: "index_addresses_on_state_id", using: :btree
+
+  create_table "countries", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "code",       limit: 255
+    t.string   "currency",   limit: 255
+    t.string   "a3code",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
-    t.decimal  "lat",                       precision: 10
-    t.decimal  "lng",                       precision: 10
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
+  create_table "states", force: :cascade do |t|
+    t.integer  "country_id", limit: 4
+    t.string   "name",       limit: 255
+    t.string   "code",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "states", ["country_id"], name: "index_states_on_country_id", using: :btree
+
+  add_foreign_key "addresses", "restaurants"
+  add_foreign_key "states", "countries"
 end

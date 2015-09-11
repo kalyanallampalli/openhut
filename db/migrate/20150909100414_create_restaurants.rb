@@ -3,8 +3,6 @@ class CreateRestaurants < ActiveRecord::Migration
     create_table :restaurants do |t|
       t.string :name
       t.text :description
-      t.decimal :lat
-      t.decimal :lng
 
       t.timestamps null: false
     end

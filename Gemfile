@@ -30,7 +30,7 @@ group :doc do
 end
 
 # Use unicorn as the app server
-gem 'puma'
+gem 'thin'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
@@ -59,3 +59,4 @@ end
 gem "zomato"
 gem 'geocoder'
 gem 'haml'
+gem 'rb-readline'

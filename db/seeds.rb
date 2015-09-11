@@ -5,3 +5,10 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+seed_files = Dir[Rails.root.join("lib/seed/shared/*.rb").to_s]
+seed_files.each { |rb| require rb }
+
+Seed::Shared::Countries.seed
+Seed::Shared::States.seed
+Seed::Shared::Restaurants.seed
